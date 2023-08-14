@@ -3,9 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>widenbot_web</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WidenBotWeb</RootNamespace>
     <Nullable>enable</Nullable>
+    <WarningsAsErrors>enable</WarningsAsErrors>
   </PropertyGroup>
 
 </Project>
