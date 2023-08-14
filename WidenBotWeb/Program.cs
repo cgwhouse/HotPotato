@@ -1,11 +1,16 @@
-﻿using System;
+﻿using WidenBotWeb.Scripts;
+using System;
+using System.Threading.Tasks;
 
 namespace WidenBotWeb;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        Console.WriteLine("Hello, WidenBotWeb!");
+        Console.WriteLine("Executing sample script...");
+
+        var sample = new Sample();
+        await sample.Run();
     }
 }

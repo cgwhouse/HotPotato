@@ -8,4 +8,8 @@
     <WarningsAsErrors>enable</WarningsAsErrors>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
+  </ItemGroup>
+
 </Project>
