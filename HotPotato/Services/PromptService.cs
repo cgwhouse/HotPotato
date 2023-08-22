@@ -24,6 +24,11 @@ public static class PromptService
         PresentMenu("Main Menu", MainMenuOptions);
     }
 
+    private static void PresentPotatoRunMenu()
+    {
+        PresentMenu("Please choose a potato", PotatoRunMenuOptions);
+    }
+
     public static int GetMainMenuSelection()
     {
         Console.Write("\nSelect an option: ");
@@ -56,12 +61,44 @@ public static class PromptService
         return choiceInt.Value;
     }
 
+    public static int? GetPotatoMenuSelection()
+    {
+        Console.Write("\nSelect an option (Press Enter to return to main menu): ");
+
+        var choice = Console.ReadLine();
+
+        // Write a line to keep the output looking not cramped
+        Console.WriteLine();
+
+        if (string.IsNullOrEmpty(choice))
+            return null;
+
+        // Parse choice as int
+        int? choiceInt = null;
+        try
+        {
+            choiceInt = int.Parse(choice);
+        }
+        catch (Exception)
+        {
+            throw new ArgumentException("Choice could not be parsed as int");
+        }
+
+        if (choiceInt == null)
+            throw new ArgumentException("choiceAsKey was null");
+
+        if (!PotatoRunMenuOptions.Keys.Contains(choiceInt.Value))
+            throw new ArgumentException("Choice was not found in menu options");
+
+        return choiceInt.Value;
+    }
+
     public static async Task ExecuteMainMenuSelection(int mainMenuSelection)
     {
         switch (mainMenuSelection)
         {
             case 1:
-                await RunPotatoAfterShowingMenu();
+                await DoPotatoPrompt();
                 break;
             case 2:
                 Console.WriteLine("Goodbye!\n");
@@ -72,9 +109,7 @@ public static class PromptService
         }
     }
 
-    #region Private
-
-    private static async Task RunPotatoAfterShowingMenu()
+    private static async Task DoPotatoPrompt()
     {
         while (true)
         {
@@ -84,7 +119,7 @@ public static class PromptService
 
                 int? potatoMenuSelection = null;
 
-                potatoMenuSelection = 0; // TODO GetMainMenuSelection, but for potatoes
+                potatoMenuSelection = GetPotatoMenuSelection();
 
                 // Exit to main menu
                 if (potatoMenuSelection == null)
@@ -112,11 +147,4 @@ public static class PromptService
         foreach (var menuOption in menuOptions)
             Console.WriteLine($"{menuOption.Key} - {menuOption.Value}");
     }
-
-    private static void PresentPotatoRunMenu()
-    {
-        PresentMenu("Please choose a potato", PotatoRunMenuOptions);
-    }
-
-    #endregion
 }
