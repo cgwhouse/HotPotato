@@ -3,13 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>WidenBotWeb</RootNamespace>
+    <RootNamespace>HotPotato</RootNamespace>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>enable</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
   </ItemGroup>
 
 </Project>
