@@ -4,7 +4,6 @@ This is a (useless) automation engine built upon Selenium WebDriver and .NET.
 
 ## Dependencies
 
-- .NET SDK
 - Recent version of Chrome / Chromium
 
 ## Known Issues
@@ -13,12 +12,11 @@ This is a (useless) automation engine built upon Selenium WebDriver and .NET.
 
 ## Next Steps
 
-- Make a distributable that only requires runtime instead of the SDK + having to build it yourself
+- Make an internal install script that builds and zips self-contained distributables for target platforms
 
 ## TODOs
 
 - Guarantee a driver.Quit() call at the end
-- Start to stub out the CLI interaction
-- Consider allowing user to select the browser themselves?
-- Any user preferences we would want to persist? Maybe we could use a sqllite db under the hood?
+- Consider allowing user to select the browser they want to use
+- Any user preferences we would want to persist? Another option on main menu
 - Serilog config
