@@ -1,13 +1,15 @@
-﻿using WidenBotWeb.Scripts;
+﻿using HotPotato.Scripts;
 using System;
 using System.Threading.Tasks;
 
-namespace WidenBotWeb;
+namespace HotPotato;
 
 public class Program
 {
     public static async Task Main(string[] args)
     {
+        Console.WriteLine("Welcome to Hot Potato!");
+
         Console.WriteLine("Executing sample script...");
 
         var sample = new Sample();

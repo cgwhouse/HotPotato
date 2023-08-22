@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Threading.Tasks;
 
-namespace WidenBotWeb.Scripts;
+namespace HotPotato.Scripts;
 
 public class Sample
 {
