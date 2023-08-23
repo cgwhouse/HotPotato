@@ -17,21 +17,17 @@ public class Program
             {
                 PromptService.PresentMainMenu();
 
-                int? mainMenuSelection = null;
-
                 try
                 {
-                    mainMenuSelection = PromptService.GetMainMenuSelection();
+                    var mainMenuSelection = PromptService.GetMainMenuSelection();
+
+                    await PromptService.ExecuteMainMenuSelection(mainMenuSelection);
                 }
                 catch (ArgumentException)
                 {
                     Console.WriteLine("Invalid selection.\n");
                     throw;
                 }
-
-                await PromptService.ExecuteMainMenuSelection(
-                    mainMenuSelection ?? throw new Exception("mainMenuSelection was null")
-                );
             }
             catch (Exception ex)
             {

@@ -29,11 +29,6 @@ public static class PromptService
             ?? throw new ArgumentException("Main menu selection was null");
     }
 
-    public static int? GetPotatoMenuSelection()
-    {
-        return GetMenuSelection("Select an option (Press Enter to return to main menu)", true);
-    }
-
     public static async Task ExecuteMainMenuSelection(int mainMenuSelection)
     {
         switch (mainMenuSelection)
@@ -60,13 +55,17 @@ public static class PromptService
 
                 int? potatoMenuSelection = null;
 
-                potatoMenuSelection = GetPotatoMenuSelection();
+                potatoMenuSelection = GetMenuSelection(
+                    "Select an option (Press Enter to return to main menu)",
+                    true
+                );
 
                 // Exit to main menu
                 if (potatoMenuSelection == null)
                     break;
 
                 var potatoRunService = new PotatoRunService();
+
                 await potatoRunService.RunPotato(potatoMenuSelection.Value);
 
                 break;
