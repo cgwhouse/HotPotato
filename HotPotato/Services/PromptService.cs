@@ -25,7 +25,7 @@ public static class PromptService
 
     public static int GetMainMenuSelection()
     {
-        return GetMenuSelection("Select an option", false)
+        return GetMenuSelection("Select an option", allowEmpty: false)
             ?? throw new ArgumentException("Main menu selection was null");
     }
 
@@ -57,7 +57,7 @@ public static class PromptService
 
                 potatoMenuSelection = GetMenuSelection(
                     "Select an option (Press Enter to return to main menu)",
-                    true
+                    allowEmpty: true
                 );
 
                 // Exit to main menu
