@@ -7,53 +7,31 @@ namespace HotPotato.Services;
 
 public static class PromptService
 {
-    private static ImmutableDictionary<int, string> MainMenuOptions = ImmutableDictionary<
-        int,
-        string
-    >.Empty
-        .Add(1, "Run a potato")
-        .Add(2, "Exit");
-
-    private static ImmutableDictionary<int, string> PotatoRunMenuOptions = ImmutableDictionary<
-        int,
-        string
-    >.Empty.Add(1, "Sample");
-
     public static void PresentMainMenu()
     {
-        PresentMenu("Main Menu", MainMenuOptions);
+        var mainMenuOptions = ImmutableDictionary<int, string>.Empty
+            .Add(1, "Run a potato")
+            .Add(2, "Exit");
+
+        PresentMenu("Main Menu", mainMenuOptions);
+    }
+
+    private static void PresentPotatoRunMenu()
+    {
+        var potatoRunMenuOptions = ImmutableDictionary<int, string>.Empty.Add(1, "Sample");
+
+        PresentMenu("Please choose a potato", potatoRunMenuOptions);
     }
 
     public static int GetMainMenuSelection()
     {
-        Console.Write("\nSelect an option: ");
+        return GetMenuSelection("Select an option", false)
+            ?? throw new ArgumentException("Main menu selection was null");
+    }
 
-        var choice = Console.ReadLine();
-
-        // Write a line to keep the output looking not cramped
-        Console.WriteLine();
-
-        if (string.IsNullOrEmpty(choice))
-            throw new ArgumentException("Choice was null or empty");
-
-        // Parse choice as int
-        int? choiceInt = null;
-        try
-        {
-            choiceInt = int.Parse(choice);
-        }
-        catch (Exception)
-        {
-            throw new ArgumentException("Choice could not be parsed as int");
-        }
-
-        if (choiceInt == null)
-            throw new ArgumentException("choiceAsKey was null");
-
-        if (!MainMenuOptions.Keys.Contains(choiceInt.Value))
-            throw new ArgumentException("Choice was not found in menu options");
-
-        return choiceInt.Value;
+    public static int? GetPotatoMenuSelection()
+    {
+        return GetMenuSelection("Select an option (Press Enter to return to main menu)", true);
     }
 
     public static async Task ExecuteMainMenuSelection(int mainMenuSelection)
@@ -61,7 +39,7 @@ public static class PromptService
         switch (mainMenuSelection)
         {
             case 1:
-                await RunPotatoAfterShowingMenu();
+                await DoPotatoPrompt();
                 break;
             case 2:
                 Console.WriteLine("Goodbye!\n");
@@ -72,9 +50,7 @@ public static class PromptService
         }
     }
 
-    #region Private
-
-    private static async Task RunPotatoAfterShowingMenu()
+    private static async Task DoPotatoPrompt()
     {
         while (true)
         {
@@ -84,7 +60,7 @@ public static class PromptService
 
                 int? potatoMenuSelection = null;
 
-                potatoMenuSelection = 0; // TODO GetMainMenuSelection, but for potatoes
+                potatoMenuSelection = GetPotatoMenuSelection();
 
                 // Exit to main menu
                 if (potatoMenuSelection == null)
@@ -113,10 +89,38 @@ public static class PromptService
             Console.WriteLine($"{menuOption.Key} - {menuOption.Value}");
     }
 
-    private static void PresentPotatoRunMenu()
+    private static int? GetMenuSelection(string userPrompt, bool allowEmpty)
     {
-        PresentMenu("Please choose a potato", PotatoRunMenuOptions);
-    }
+        Console.Write($"\n{userPrompt}: ");
 
-    #endregion
+        var choice = Console.ReadLine();
+
+        // Write a line to keep the output looking not cramped
+        Console.WriteLine();
+
+        if (string.IsNullOrEmpty(choice))
+        {
+            if (allowEmpty)
+                return null;
+
+            throw new ArgumentException("choice was null");
+        }
+
+        // Parse choice as int
+        int? choiceInt = null;
+
+        try
+        {
+            choiceInt = int.Parse(choice);
+        }
+        catch (Exception)
+        {
+            throw new ArgumentException("Choice could not be parsed as int");
+        }
+
+        if (choiceInt == null)
+            throw new ArgumentException("choiceInt was null");
+
+        return choiceInt.Value;
+    }
 }
