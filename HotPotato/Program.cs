@@ -17,17 +17,9 @@ public class Program
             {
                 PromptService.PresentMainMenu();
 
-                try
-                {
-                    var mainMenuSelection = PromptService.GetMainMenuSelection();
+                var mainMenuSelection = PromptService.GetMainMenuSelection();
 
-                    await PromptService.ExecuteMainMenuSelection(mainMenuSelection);
-                }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("Invalid selection.\n");
-                    throw;
-                }
+                await PromptService.ExecuteMainMenuSelection(mainMenuSelection);
             }
             catch (Exception ex)
             {

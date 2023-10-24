@@ -37,7 +37,6 @@ public static class PromptService
                 await DoPotatoPrompt();
                 break;
             case 2:
-                Console.WriteLine("Goodbye!\n");
                 System.Environment.Exit(0);
                 break;
             default:
