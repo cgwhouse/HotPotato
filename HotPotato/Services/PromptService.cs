@@ -1,3 +1,4 @@
+using HotPotato.Models;
 using System;
 using System.Collections.Immutable;
 using System.Linq;
@@ -21,7 +22,7 @@ public static class PromptService
     public static int GetMainMenuSelection()
     {
         return GetMenuSelection("Select an option", allowEmpty: false)
-            ?? throw new ArgumentException("Main menu selection was null");
+            ?? throw new PromptException("Main menu selection was null");
     }
 
     public static async Task ExecuteMainMenuSelection(int mainMenuSelection)
@@ -35,7 +36,7 @@ public static class PromptService
                 System.Environment.Exit(0);
                 break;
             default:
-                throw new ArgumentException("Unrecognized selection for main menu");
+                throw new PromptException("Unrecognized selection for main menu");
         }
     }
 
@@ -70,7 +71,7 @@ public static class PromptService
             }
             // We just want it to re-prompt the user, if they entered anything other than a
             // valid option for selection
-            catch (ArgumentException) { }
+            catch (PromptException) { }
         }
     }
 
@@ -108,7 +109,7 @@ public static class PromptService
             if (allowEmpty)
                 return null;
 
-            throw new ArgumentException("choice was null");
+            throw new PromptException("choice was null");
         }
 
         // Parse choice as int
@@ -120,11 +121,11 @@ public static class PromptService
         }
         catch (Exception)
         {
-            throw new ArgumentException("choice could not be parsed as int");
+            throw new PromptException("choice could not be parsed as int");
         }
 
         if (choiceInt == null)
-            throw new ArgumentException("choiceInt was null");
+            throw new PromptException("choiceInt was null");
 
         return choiceInt.Value;
     }
