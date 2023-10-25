@@ -7,6 +7,8 @@ namespace HotPotato.Services;
 
 public static class PromptService
 {
+    #region Main Menu
+
     public static void PresentMainMenu()
     {
         var mainMenuOptions = ImmutableDictionary<int, string>.Empty
@@ -14,13 +16,6 @@ public static class PromptService
             .Add(2, "Exit");
 
         PresentMenu("Main Menu", mainMenuOptions);
-    }
-
-    private static void PresentPotatoRunMenu()
-    {
-        var potatoRunMenuOptions = ImmutableDictionary<int, string>.Empty.Add(1, "Sample");
-
-        PresentMenu("Please choose a potato", potatoRunMenuOptions);
     }
 
     public static int GetMainMenuSelection()
@@ -34,10 +29,9 @@ public static class PromptService
         switch (mainMenuSelection)
         {
             case 1:
-                await DoPotatoPrompt();
+                await ExecutePotatoMenuSelection();
                 break;
             case 2:
-                Console.WriteLine("Goodbye!\n");
                 System.Environment.Exit(0);
                 break;
             default:
@@ -45,13 +39,17 @@ public static class PromptService
         }
     }
 
-    private static async Task DoPotatoPrompt()
+    #endregion
+
+    #region Potato Menu
+
+    private static async Task ExecutePotatoMenuSelection()
     {
         while (true)
         {
             try
             {
-                PresentPotatoRunMenu();
+                PresentPotatoMenu();
 
                 int? potatoMenuSelection = null;
 
@@ -70,12 +68,20 @@ public static class PromptService
 
                 break;
             }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("Invalid selection.\n");
-            }
+            // We just want it to re-prompt the user, if they entered anything other than a
+            // valid option for selection
+            catch (ArgumentException) { }
         }
     }
+
+    private static void PresentPotatoMenu()
+    {
+        var potatoMenuOptions = ImmutableDictionary<int, string>.Empty.Add(1, "Sample");
+
+        PresentMenu("Please choose a potato", potatoMenuOptions);
+    }
+
+    #endregion
 
     private static void PresentMenu(string menuTitle, ImmutableDictionary<int, string> menuOptions)
     {
@@ -97,7 +103,7 @@ public static class PromptService
         // Write a line to keep the output looking not cramped
         Console.WriteLine();
 
-        if (string.IsNullOrEmpty(choice))
+        if (string.IsNullOrWhiteSpace(choice))
         {
             if (allowEmpty)
                 return null;
@@ -114,7 +120,7 @@ public static class PromptService
         }
         catch (Exception)
         {
-            throw new ArgumentException("Choice could not be parsed as int");
+            throw new ArgumentException("choice could not be parsed as int");
         }
 
         if (choiceInt == null)
