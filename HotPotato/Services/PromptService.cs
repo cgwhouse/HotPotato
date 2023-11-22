@@ -23,7 +23,7 @@ namespace HotPotato.Services
 
         public static int GetMainMenuSelection()
         {
-            return GetMenuSelection("Select an option", allowEmpty: false)
+            return GetMenuSelection("Select an option")
                 ?? throw new ArgumentException("Main menu selection was null");
         }
 
@@ -57,8 +57,7 @@ namespace HotPotato.Services
                     int? potatoMenuSelection = null;
 
                     potatoMenuSelection = GetMenuSelection(
-                        "Select an option (Press Enter to return to main menu)",
-                        allowEmpty: true
+                        "Select an option (Press Enter to return to main menu)"
                     );
 
                     // Exit to main menu
@@ -108,7 +107,7 @@ namespace HotPotato.Services
             }
         }
 
-        private static int? GetMenuSelection(string userPrompt, bool allowEmpty)
+        private static int? GetMenuSelection(string userPrompt)
         {
             Console.Write($"\n{userPrompt}: ");
 
@@ -119,7 +118,7 @@ namespace HotPotato.Services
 
             if (string.IsNullOrWhiteSpace(choice))
             {
-                return allowEmpty ? null : throw new ArgumentException("choice was null");
+                return null;
             }
 
             // Parse choice as int
