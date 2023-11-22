@@ -121,21 +121,14 @@ namespace HotPotato.Services
                 return null;
             }
 
-            // Parse choice as int
-            int? choiceInt;
-
             try
             {
-                choiceInt = int.Parse(choice, NumberFormatInfo.InvariantInfo);
+                return int.Parse(choice, NumberFormatInfo.InvariantInfo);
             }
             catch (Exception)
             {
                 throw new ArgumentException("choice could not be parsed as int");
             }
-
-            return choiceInt == null
-                ? throw new ArgumentException("choiceInt was null")
-                : choiceInt.Value;
         }
     }
 }

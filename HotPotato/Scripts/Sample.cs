@@ -1,6 +1,6 @@
+using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System.Threading.Tasks;
 
 namespace HotPotato.Scripts;
 
