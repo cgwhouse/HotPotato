@@ -1,31 +1,33 @@
-﻿using HotPotato.Services;
-using Serilog;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using HotPotato.Services;
 
-namespace HotPotato;
-
-public class Program
+namespace HotPotato
 {
-    public static async Task Main()
+    public class Program
     {
-        Console.WriteLine("\nWelcome to Hot Potato!\n");
-
-        while (true)
+        public static async Task Main()
         {
-            try
-            {
-                PromptService.PresentMainMenu();
+            Console.WriteLine("\nWelcome to Hot Potato!\n");
 
-                var mainMenuSelection = PromptService.GetMainMenuSelection();
-
-                await PromptService.ExecuteMainMenuSelection(mainMenuSelection);
-            }
-            catch (Exception ex)
+            while (true)
             {
-                // Log exception if unexpected
-                if (ex.GetType() != typeof(ArgumentException))
-                    Log.Error(ex, "An unexpected exception was thrown");
+                try
+                {
+                    PromptService.PresentMainMenu();
+
+                    int mainMenuSelection = PromptService.GetMainMenuSelection();
+
+                    await PromptService.ExecuteMainMenuSelection(mainMenuSelection);
+                }
+                catch (Exception ex)
+                {
+                    // Log exception if unexpected
+                    if (ex.GetType() != typeof(ArgumentException))
+                    {
+                        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                    }
+                }
             }
         }
     }

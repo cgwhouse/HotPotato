@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
 
-namespace HotPotato.Services;
-
-public class PotatoRunService
+namespace HotPotato.Services
 {
-    public PotatoRunService() { }
-
-    public async Task RunPotato(int potatoKey)
+    public class PotatoRunService
     {
-        await Task.FromResult(0);
+        public PotatoRunService() { }
+
+        public async Task RunPotato(int potatoKey)
+        {
+            await Task.FromResult(0);
+        }
     }
 }
