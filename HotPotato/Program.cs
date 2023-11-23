@@ -1,5 +1,3 @@
-﻿using System;
-using System.Threading.Tasks;
 using HotPotato.Services;
 
 namespace HotPotato
@@ -23,9 +21,9 @@ namespace HotPotato
                 catch (Exception ex)
                 {
                     // Log exception if unexpected
-                    if (ex.GetType() != typeof(ArgumentException))
+                    if (ex.GetType() != typeof(PromptException))
                     {
-                        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                        Console.WriteLine($"An unexpected exception was thrown: {ex.Message}");
                     }
                 }
             }

@@ -1,3 +1,4 @@
+using HotPotato.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -24,7 +25,7 @@ namespace HotPotato.Services
         public static int GetMainMenuSelection()
         {
             return GetMenuSelection("Select an option")
-                ?? throw new ArgumentException("Main menu selection was null");
+                ?? throw new PromptException("Main menu selection was null");
         }
 
         public static async Task ExecuteMainMenuSelection(int mainMenuSelection)
@@ -38,7 +39,7 @@ namespace HotPotato.Services
                     Environment.Exit(0);
                     break;
                 default:
-                    throw new ArgumentException("Unrecognized selection for main menu");
+                    throw new PromptException("Unrecognized selection for main menu");
             }
         }
 
@@ -54,9 +55,7 @@ namespace HotPotato.Services
                 {
                     PresentPotatoMenu();
 
-                    int? potatoMenuSelection = null;
-
-                    potatoMenuSelection = GetMenuSelection(
+                    int? potatoMenuSelection = GetMenuSelection(
                         "Select an option (Press Enter to return to main menu)"
                     );
 
@@ -66,6 +65,8 @@ namespace HotPotato.Services
                         break;
                     }
 
+                    // TODO improvement starts here!
+
                     PotatoRunService potatoRunService = new();
 
                     await potatoRunService.RunPotato(potatoMenuSelection.Value);
@@ -74,7 +75,7 @@ namespace HotPotato.Services
                 }
                 // We just want it to re-prompt the user, if they entered anything other than a
                 // valid option for selection
-                catch (ArgumentException) { }
+                catch (PromptException) { }
             }
         }
 
@@ -96,7 +97,7 @@ namespace HotPotato.Services
         {
             if (!menuOptions.Any())
             {
-                throw new ArgumentException("menuOptions was empty");
+                throw new PromptException("menuOptions was empty");
             }
 
             Console.WriteLine($"{menuTitle}:\n");
@@ -127,7 +128,7 @@ namespace HotPotato.Services
             }
             catch (Exception)
             {
-                throw new ArgumentException("choice could not be parsed as int");
+                throw new PromptException("choice could not be parsed as int");
             }
         }
     }
