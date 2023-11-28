@@ -10,7 +10,7 @@ namespace HotPotato.Services
 
         public PotatoRunService() { }
 
-        public async Task RunPotato(int potatoKey)
+        public static async Task RunPotato(int potatoKey)
         {
             await Task.FromResult(0);
         }

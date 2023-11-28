@@ -69,7 +69,7 @@ namespace HotPotato.Services
 
                     PotatoRunService potatoRunService = new();
 
-                    await potatoRunService.RunPotato(potatoMenuSelection.Value);
+                    await PotatoRunService.RunPotato(potatoMenuSelection.Value);
 
                     break;
                 }

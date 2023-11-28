@@ -2,20 +2,21 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace HotPotato.Scripts;
-
-public class Sample
+namespace HotPotato.Scripts
 {
-    public Sample() { }
-
-    public async Task Run()
+    public class Sample
     {
-        IWebDriver driver = new ChromeDriver();
+        public Sample() { }
 
-        driver.Navigate().GoToUrl("https://google.com");
+        public static async Task Run()
+        {
+            IWebDriver driver = new ChromeDriver();
 
-        await Task.Delay(5000);
+            driver.Navigate().GoToUrl("https://google.com");
 
-        driver.Quit();
+            await Task.Delay(5000);
+
+            driver.Quit();
+        }
     }
 }
